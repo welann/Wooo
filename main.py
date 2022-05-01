@@ -63,14 +63,14 @@ def initialize_voxels():
 
     grass()
 
-    create_block(ivec3(0, -39, 20),ivec3(3,25,3),vec3(0.7), vec3(0.3),1)
+    create_block(ivec3(0, -39, 20),ivec3(3,35,3),vec3(95, 67, 33)/255, vec3(0.1),1)
     for i in range(50):
         scopex = -ti.random()*20+10
         scopey = -ti.random()*20+10
         scopez = -ti.random()*20+10
-        bigcube(ivec3(-20,-30,0)+ivec3(scopex,scopey,scopez),vec3(119, 150, 73)/255,1)
+        bigcube(ivec3(-20,-25,0)+ivec3(scopex,scopey,scopez),vec3(119, 150, 73)/255,1)
 
-    create_block(ivec3(-20, -39, -30),ivec3(3,35,3),vec3(0.7), vec3(0.3),1)
+    create_block(ivec3(-20, -39, -30),ivec3(3,35,3),vec3(95, 67, 33)/255, vec3(0.1),1)
     for i in range(50):
         scopex = -ti.random()*20+10
         scopey = -ti.random()*20+10
