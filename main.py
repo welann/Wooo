@@ -5,7 +5,7 @@ from taichi.math import *
 scene = Scene(voxel_edges=0, exposure=2)
 scene.set_floor(-0.85, (134/255, 142/255, 150/255))
 scene.set_background_color((206/255, 212/255, 218/255))
-scene.set_directional_light((1, 10, -1), 0.5, (1, 0.8, 0.6))
+scene.set_directional_light((1, 10, -1), 0.5, vec3(169, 190, 123)/255)
 
 
 @ti.func
@@ -28,12 +28,13 @@ def bigcube(pos, color,model):
             create_block(pos+ivec3(scopex,scopey,scopez),ivec3(1,1,1),color,vec3(0.01),1)
             
 @ti.func
-def cloud(pos,size):
+def cloud(pos,size,color):
     for i in range(size):
         scopex = ti.random()*i+5
         scopey = ti.random()*i+5
         scopez = ti.random()*i+5
-        bigcube(pos+ivec3(scopex,scopey,scopez),vec3(110, 155, 197)/255,2)
+        # bigcube(pos+ivec3(scopex,scopey,scopez),vec3(110, 155, 197)/255,2)
+        bigcube(pos+ivec3(scopex,scopey,scopez),color,2)
 
 
 #todo
@@ -45,10 +46,12 @@ def grass():
         height = ti.random() * 5+7
         if ti.random() < 0.1:
             create_block(ivec3(i, -40, j), ivec3(1, height, 1), vec3(151, 117, 250)/255, vec3(0.3),1)
-        if ti.random() <0.03:
+        if ti.random() <0.05:
             scene.set_voxel(ivec3(i, height-50, j), 2, vec3(148, 216, 45)/255)
         if ti.random() <0.0013:
-            cloud(ivec3(i, height-15, j),15)
+            cloud(ivec3(i, height-75, j),8,vec3(250, 192, 61)/255)
+            height = ti.random() * 5+7
+            cloud(ivec3(i, height-8, j),15,vec3(110, 155, 197)/255)
 
 @ti.kernel
 def initialize_voxels():
