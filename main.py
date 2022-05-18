@@ -17,7 +17,7 @@ def create_block(pos, size, color, color_noise,model):
         scene.set_voxel(I, model, color + color_noise * ti.random())
 
 @ti.func
-def bigcube(pos, color,model):
+def bigcube(pos, color):
     for i in range(80):
         scopex = ti.random()*6+20
         scopey = ti.random()*6+20
@@ -34,7 +34,7 @@ def cloud(pos,size,color):
         scopey = ti.random()*i+5
         scopez = ti.random()*i+5
         # bigcube(pos+ivec3(scopex,scopey,scopez),vec3(110, 155, 197)/255,2)
-        bigcube(pos+ivec3(scopex,scopey,scopez),color,2)
+        bigcube(pos+ivec3(scopex,scopey,scopez),color)
 
 
 #todo
@@ -49,7 +49,7 @@ def grass():
         if ti.random() <0.05:
             scene.set_voxel(ivec3(i, height-50, j), 2, vec3(148, 216, 45)/255)
         if ti.random() <0.0013:
-            cloud(ivec3(i, height-75, j),8,vec3(250, 192, 61)/255)
+            # cloud(ivec3(i, height-75, j),8,vec3(250, 192, 61)/255)
             height = ti.random() * 5+7
             cloud(ivec3(i, height-8, j),15,vec3(110, 155, 197)/255)
 
@@ -62,8 +62,8 @@ def initialize_voxels():
                      vec3(0.02 * (3 - i)), 
                     1)
 
-    create_block(ivec3(-60, -40, -60), ivec3(120, 1, 120), vec3(238, 121, 89)/255,vec3(0.01),1)
-
+    create_block(ivec3(-60, -40, -60), ivec3(120, 1, 120), vec3(238, 121, 89)/255,vec3(0.01),2)
+    # bigcube(ivec3(-20,-25,0),vec3(119, 150, 73)/255)
     grass()
 
     create_block(ivec3(0, -39, 20),ivec3(3,35,3),vec3(95, 67, 33)/255, vec3(0.1),1)
@@ -71,14 +71,14 @@ def initialize_voxels():
         scopex = -ti.random()*20+10
         scopey = -ti.random()*20+10
         scopez = -ti.random()*20+10
-        bigcube(ivec3(-20,-25,0)+ivec3(scopex,scopey,scopez),vec3(119, 150, 73)/255,1)
+        bigcube(ivec3(-20,-25,0)+ivec3(scopex,scopey,scopez),vec3(119, 150, 73)/255)
 
     create_block(ivec3(-20, -39, -30),ivec3(3,35,3),vec3(95, 67, 33)/255, vec3(0.1),1)
     for i in range(50):
         scopex = -ti.random()*20+10
         scopey = -ti.random()*20+10
         scopez = -ti.random()*20+10
-        bigcube(ivec3(-40,-20,-50)+ivec3(scopex,scopey,scopez),vec3(1.0, 0.3, 0.9),1)
+        bigcube(ivec3(-40,-20,-50)+ivec3(scopex,scopey,scopez),vec3(1.0, 0.3, 0.9))
 
 
 initialize_voxels()
